@@ -10,7 +10,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # User configuration
-HISTFILE="$HOME/.histfile"
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=15000
 SAVEHIST=15000
 
