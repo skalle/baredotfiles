@@ -1,3 +1,7 @@
+# Keychain
+keychain ~/.ssh/id_ed25519
+. ~/.keychain/${HOST}-sh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -10,8 +14,10 @@ HISTFILE="$HOME/.histfile"
 HISTSIZE=15000
 SAVEHIST=15000
 
-alias ha='history'
-alias nvim='nv'
+alias ha='history 0'
+# Some cool bare dotfiles stuff.
+alias config='/usr/bin/git --git-dir=/home/olak/.cfg/ --work-tree=/home/olak'
+
 PATH=$PATH:~/bin:~/go/bin:~/.local/bin:~/.cargo/bin/
 EDITOR=/usr/bin/nvim
 #xmodmap ~/.Xmodmap
@@ -35,7 +41,7 @@ fag() {
    setopt sh_word_split
    cols=(${out//:/  })
    unsetopt sh_word_split
-   vim ${cols[1]} +"normal! ${cols[2]}zz"
+   nvim ${cols[1]} +"normal! ${cols[2]}zz"
  fi
 }
 
@@ -52,34 +58,40 @@ fep() {
     [ -n "$files" ] && eval $command
 }
 #####################################
+#
+# Clone zcomet if necessary
+if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
+  command git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
+fi
+
+source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
+
+# Some basic addons.
+zcomet load zsh-users/zsh-completions
+zcomet load zsh-users/zsh-history-substring-search
+zcomet load zdharma/fast-syntax-highlighting
+zcomet load zsh-users/zsh-autosuggestions
+
+# Fzy rules.
+zcomet load aperezdc/zsh-fzy
+zcomet load hcgraf/zsh-sudo
+
+# A nice prompt.
+zcomet load romkatv/powerlevel10k
+
+# Run compinit and compile its cache
+zcomet compinit
+
+# Double escape -> sudo
+zcomet load ohmyzsh plugins/sudo
+
+## End plugins
 
 
-### Added by Zplugin's installer
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zplugin installer's chunk
-
-zinit ice wait blockf atpull'zinit creinstall -q .'
-zinit light zsh-users/zsh-completions
-
-zinit light zsh-users/zsh-history-substring-search
-
-zinit ice wait atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
-
-zinit ice wait atload"_zsh_autosuggest_start"
-zinit light zsh-users/zsh-autosuggestions
-
-zinit snippet OMZ::/lib/history.zsh
-
-zinit light aperezdc/zsh-fzy
 bindkey '\ec' fzy-cd-widget
 bindkey '^T'  fzy-file-widget
 bindkey '^R'  fzy-history-widget
 bindkey '^P'  fzy-proc-widget
-
-zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # Let's see if this works.
 bindkey '^[[A' history-substring-search-up
@@ -95,5 +107,12 @@ typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Direnv
 eval "$(direnv hook zsh)"
-alias config='/usr/bin/git --git-dir=/home/olak/.cfg/ --work-tree=/home/olak'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/olak/CloudSDK/google-cloud-sdk/path.zsh.inc' ]; then . '/home/olak/CloudSDK/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/olak/CloudSDK/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/olak/CloudSDK/google-cloud-sdk/completion.zsh.inc'; fi
+
