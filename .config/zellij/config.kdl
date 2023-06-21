@@ -5,11 +5,15 @@ keybinds {
         // bind "Alt c" { Copy; }
         bind "Ctrl h" { GoToPreviousTab; }
         bind "Ctrl l" { GoToNextTab; }
+        bind "Alt q" { ToggleFloatingPanes; SwitchToMode "Locked";}
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
-
+        bind "Ctrl h" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "Ctrl l" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "Alt q" { ToggleFloatingPanes; SwitchToMode "Normal"; };
     }
+    
     resize {
         bind "Ctrl n" { SwitchToMode "Normal"; }
         bind "h" "Left" { Resize "Increase Left"; }

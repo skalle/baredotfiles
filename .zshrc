@@ -9,6 +9,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
+source /usr/bin/switch.sh
+
 # User configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=15000
@@ -64,6 +67,15 @@ if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
   command git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
 fi
 
+# zellij
+#
+function zr () { zellij run --name "$*" -- zsh -ic "$*";}
+function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
+function ze () { zellij edit "$*";}
+function zef () { zellij edit --floating "$*";}
+
+fpath=(~/zcomp $fpath)
+
 source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
 
 # Some basic addons.
@@ -78,6 +90,7 @@ zcomet load hcgraf/zsh-sudo
 
 # A nice prompt.
 zcomet load romkatv/powerlevel10k
+
 
 # Run compinit and compile its cache
 zcomet compinit
@@ -109,6 +122,9 @@ typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx
 
 # Direnv
 eval "$(direnv hook zsh)"
+
+
+
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/olak/CloudSDK/google-cloud-sdk/path.zsh.inc' ]; then . '/home/olak/CloudSDK/google-cloud-sdk/path.zsh.inc'; fi
