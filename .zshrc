@@ -96,4 +96,7 @@ typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(direnv hook zsh)"
+eval "$(zellij setup --generate-auto-start zsh)"
+eval "$(zellij setup --generate-completion zsh)"
+
 alias config='/usr/bin/git --git-dir=/home/olak/.cfg/ --work-tree=/home/olak'
