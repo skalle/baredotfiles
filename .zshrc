@@ -21,7 +21,7 @@ alias ha='history 0'
 # Some cool bare dotfiles stuff.
 alias config='/usr/bin/git --git-dir=/home/olak/.cfg/ --work-tree=/home/olak'
 
-PATH=$PATH:~/bin:~/go/bin:~/.local/bin:~/.cargo/bin/
+PATH=$PATH:~/bin:~/go/bin:~/.local/bin:~/.cargo/bin/:${HOME}/.krew/bin
 EDITOR=/usr/bin/nvim
 #xmodmap ~/.Xmodmap
 
@@ -123,6 +123,8 @@ typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx
 # Direnv
 eval "$(direnv hook zsh)"
 
+# zoxide
+eval "$(zoxide init zsh)"
 
 
 
