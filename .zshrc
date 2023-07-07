@@ -22,7 +22,7 @@ alias ha='history 0'
 alias config='/usr/bin/git --git-dir=/home/olak/.cfg/ --work-tree=/home/olak'
 
 PATH=$PATH:~/bin:~/go/bin:~/.local/bin:~/.cargo/bin/:${HOME}/.krew/bin
-EDITOR=/usr/bin/nvim
+EDITOR=/usr/bin/nvr
 #xmodmap ~/.Xmodmap
 
 ### fzf ############################
