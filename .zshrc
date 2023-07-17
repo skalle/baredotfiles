@@ -5,13 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+eval `keychain --eval id_rsa`
+
 # User configuration
 HISTFILE="$HOME/.histfile"
 HISTSIZE=15000
 SAVEHIST=15000
 
 alias ha='history'
-alias nvim='nv'
 PATH=$PATH:~/bin:~/go/bin:~/.local/bin:~/.cargo/bin/
 EDITOR=/usr/bin/nvim
 #xmodmap ~/.Xmodmap
